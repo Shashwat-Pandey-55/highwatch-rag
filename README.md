@@ -110,7 +110,7 @@ uvicorn api.main:app --reload --port 8000
 
 ### 📄 Document Processing
 
-- Parses PDF, TXT, and Google Docs
+- Parses PDF and TXT
 - Extracts clean text content
 - Handles different file formats uniformly
 - Prepares data for chunking
