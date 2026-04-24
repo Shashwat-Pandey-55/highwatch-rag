@@ -56,9 +56,7 @@ connectors/ → processing/ → embedding/ → search/ → api/
 - 🧠 Semantic search using FAISS
 - 🔍 Retrieval-Augmented Generation (RAG) workflow
 - 🤖 Context-aware question answering using Groq LLM
-- ⚡ FastAPI backend with interactive Swagger UI
 - 🐳 Docker support for containerized deployment
-- 💾 Persistent local storage for vector index and sync state
 
 ---
 
