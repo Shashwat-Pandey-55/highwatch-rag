@@ -21,7 +21,7 @@ connectors/ → processing/ → embedding/ → search/ → api/
 GEMINI_API_KEY=your-gemini-key
 GROQ_API_KEY=your-groq-key
 
-5. Run: `uvicorn api.main:app --reload`
+5. Run: `uvicorn api.main:app --reload --port 8000`
 
 ## API Endpoints
 - `POST /sync-drive` — fetch and index Google Drive docs
