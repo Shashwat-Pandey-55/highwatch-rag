@@ -45,3 +45,14 @@ def download_file(service, file_id, mime_type):
     buf.seek(0)
     return buf.read()
 
+
+import json
+def load_synced_ids():
+    if os.path.exists('synced_ids.json'):
+        with open('synced_ids.json') as f:
+            return json.load(f)
+    return {}
+
+def save_synced_ids(synced):
+    with open('synced_ids.json', 'w') as f:
+        json.dump(synced, f)
