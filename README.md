@@ -1,42 +1,21 @@
 # Highwatch RAG System
 
-A RAG (Retrieval Augmented Generation) system that answers questions from your Google Drive documents.
+A **production-ready Retrieval Augmented Generation (RAG) system** that connects to **Google Drive**, processes documents, builds a **vector search index using Gemini embeddings**, and enables **context-aware Q&A via FastAPI + Groq LLM**.
 
-## Architecture
+---
+
+## 🚀 Overview
+
+This system allows you to:
+1. Sync documents from Google Drive  
+2. Process and chunk content intelligently  
+3. Generate embeddings and store them in FAISS  
+4. Ask natural language questions over your data  
+
+**Flow:**
+Google Drive → Parsing → Chunking → Embeddings → FAISS → Retrieval → LLM → Answer
+
+---
+
+## 🏗️ Architecture
 connectors/ → processing/ → embedding/ → search/ → api/
-
-- **connectors/gdrive.py** - Google Drive OAuth integration
-- **processing/parser.py** - PDF and text extraction
-- **processing/chunker.py** - Text chunking with overlap
-- **embedding/embedder.py** - Gemini embeddings
-- **search/vector_store.py** - FAISS vector storage
-- **api/main.py** - FastAPI endpoints
-
-## Setup
-1. Clone this repo
-2. Run: `pip install -r requirements.txt`
-3. Add `credentials.json` from Google Cloud Console
-4. Create `.env` with your API keys:
-
-GEMINI_API_KEY=your-gemini-key
-GROQ_API_KEY=your-groq-key
-
-5. Run: `uvicorn api.main:app --reload --port 8000`
-
-## API Endpoints
-- `POST /sync-drive` — fetch and index Google Drive docs
-- `POST /ask` — ask a question
-- `GET /health` — check indexed chunk count
-- `POST /sync-drive` — fetch and index Google Drive docs (incremental - skips already synced files)
-
-## Sample Queries
-- "What is this document about?"
-- "What are the main topics covered?"
-- "Summarize the key points"
-
-## Tech Stack
-- FastAPI + Python
-- Google Drive API (OAuth)
-- Gemini Embeddings
-- FAISS vector store
-- Groq LLM (llama-3.3-70b)
