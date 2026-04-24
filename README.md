@@ -52,7 +52,6 @@ connectors/ → processing/ → embedding/ → search/ → api/
 - 📄 Support for multiple file types:
   - PDF
   - TXT
-  - Google Docs
 - ✂️ Intelligent chunking with overlap for better retrieval
 - 🧠 Semantic search using FAISS
 - 🔍 Retrieval-Augmented Generation (RAG) workflow
@@ -109,6 +108,54 @@ uvicorn api.main:app --reload --port 8000
 
 ---
 
+⚙️ System Components (Detailed)
+
+### 📄 Document Processing
+
+- Parses PDF, TXT, and Google Docs
+- Extracts clean text content
+- Handles different file formats uniformly
+- Prepares data for chunking
+
+---
+
+### ✂️ Chunking
+
+- Splits text into smaller chunks
+- Maintains overlap between chunks
+- Preserves context across boundaries
+- Improves retrieval quality
+
+---
+
+### 🧠 Embedding Generation
+
+- Uses Gemini (`gemini-embedding-001`)
+- Converts text chunks into vector representations
+- Ensures semantic similarity search
+- Stores embeddings for retrieval
+
+---
+
+### 🔍 Vector Search (FAISS)
+
+- Stores embeddings in FAISS index
+- Supports fast nearest-neighbor search
+- Retrieves top-k relevant chunks
+- Persists index locally (`faiss_store/`)
+
+---
+
+### 🤖 Query & Generation (RAG Pipeline)
+
+**Endpoint:** `POST /ask`
+
+- Accepts user query
+- Converts query into embedding
+- Retrieves relevant chunks from FAISS
+- Sends context + query to Groq LLM
+- Returns final generated answer
+
 ## 🔄 Incremental Sync (Key Feature)
 
 ### Endpoint: `POST /sync-drive`
@@ -130,11 +177,11 @@ rm -rf faiss_store/
 
 ## 📡 API Endpoints
 
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/sync-drive` | Sync + index Google Drive documents |
-| POST | `/ask` | Ask questions based on indexed data |
-| GET | `/health` | Check system health + indexed chunks |
+| Method |    Endpoint     |               Description             |
+|  ---   |       ---       |                  ---                  |
+|  POST  |   `/sync-drive` | Sync + index Google Drive documents   |  
+|  POST  |      `/ask`     | Ask questions based on indexed data   |
+|  GET   |     `/health`   | Check system health + indexed chunks  |
 
 ---
 
