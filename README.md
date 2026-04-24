@@ -29,7 +29,7 @@ connectors/ → processing/ → embedding/ → search/ → api/
   Handles Google Drive OAuth, file listing, downloading, and incremental sync (`synced_ids.json`)
 
 - **processing/parser.py**  
-  Extracts text from PDFs, TXT, and Google Docs
+  Extracts text from PDFs and TXT
 
 - **processing/chunker.py**  
   Splits text into overlapping chunks for better retrieval
