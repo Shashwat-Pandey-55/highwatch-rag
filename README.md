@@ -27,6 +27,7 @@ GROQ_API_KEY=your-groq-key
 - `POST /sync-drive` — fetch and index Google Drive docs
 - `POST /ask` — ask a question
 - `GET /health` — check indexed chunk count
+- `POST /sync-drive` — fetch and index Google Drive docs (incremental - skips already synced files)
 
 ## Sample Queries
 - "What is this document about?"
