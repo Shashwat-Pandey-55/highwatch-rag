@@ -92,7 +92,6 @@
 
 
 
-
 # api/main.py
 import os
 from fastapi import FastAPI, HTTPException
@@ -183,6 +182,7 @@ def sync_drive():
 
 @app.post('/ask')
 def ask(request: QueryRequest):
+
     query_emb = get_embedding(request.query)
     results = vector_store.search(query_emb, top_k=4)
     if not results:
