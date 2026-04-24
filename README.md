@@ -7,18 +7,23 @@ A **production-ready Retrieval Augmented Generation (RAG) system** that connects
 ## 🚀 Overview
 
 This system allows you to:
+
 1. Sync documents from Google Drive  
 2. Process and chunk content intelligently  
 3. Generate embeddings and store them in FAISS  
 4. Ask natural language questions over your data  
 
 **Flow:**
+
 Google Drive → Parsing → Chunking → Embeddings → FAISS → Retrieval → LLM → Answer
 
 ---
 
 ## 🏗️ Architecture
+
+```text
 connectors/ → processing/ → embedding/ → search/ → api/
+```
 
 - **connectors/gdrive.py**  
   Handles Google Drive OAuth, file listing, downloading, and incremental sync (`synced_ids.json`)
@@ -43,13 +48,18 @@ connectors/ → processing/ → embedding/ → search/ → api/
 ## ✨ Features
 
 - 📂 Google Drive integration (OAuth-based)
-- 🔄 **Incremental sync** (process only new/updated files)
-- 📄 Multi-format support (PDF, TXT, Docs)
-- ✂️ Smart chunking with overlap
+- 🔄 Incremental sync to skip already processed files
+- 📄 Support for multiple file types:
+  - PDF
+  - TXT
+  - Google Docs
+- ✂️ Intelligent chunking with overlap for better retrieval
 - 🧠 Semantic search using FAISS
-- 🤖 Context-aware Q&A using Groq LLM
-- ⚡ FastAPI backend with Swagger UI
-- 🐳 Docker support for deployment
+- 🔍 Retrieval-Augmented Generation (RAG) workflow
+- 🤖 Context-aware question answering using Groq LLM
+- ⚡ FastAPI backend with interactive Swagger UI
+- 🐳 Docker support for containerized deployment
+- 💾 Persistent local storage for vector index and sync state
 
 ---
 
@@ -64,7 +74,140 @@ connectors/ → processing/ → embedding/ → search/ → api/
 ## 🛠️ Setup (Local)
 
 ### 1. Clone Repository
+
 ```bash
 git clone <your-repo-url>
 cd highwatch-rag
+```
 
+### 2. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Add Google Credentials
+
+Place `credentials.json` in the project root (from Google Cloud Console)
+
+### 4. Create Environment File
+
+```env
+GEMINI_API_KEY=your-gemini-key
+GROQ_API_KEY=your-groq-key
+```
+
+### 5. Run Server
+
+```bash
+uvicorn api.main:app --reload --port 8000
+```
+
+### 6. Open API Docs
+
+- http://localhost:8000/docs
+
+---
+
+## 🔄 Incremental Sync (Key Feature)
+
+### Endpoint: `POST /sync-drive`
+
+- Fetches files from Google Drive
+- Loads `synced_ids.json`
+- Skips already processed files
+- Processes only new files
+- Updates sync state
+
+### Force Full Re-sync
+
+```bash
+rm synced_ids.json
+rm -rf faiss_store/
+```
+
+---
+
+## 📡 API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/sync-drive` | Sync + index Google Drive documents |
+| POST | `/ask` | Ask questions based on indexed data |
+| GET | `/health` | Check system health + indexed chunks |
+
+---
+
+## 💬 Example Queries
+
+- "What is this document about?"
+- "Summarize the key points"
+- "What are the main topics covered?"
+
+---
+
+## 🐳 Docker (Deployment Ready)
+
+### Build Image
+
+```bash
+docker build -t highwatch-rag .
+```
+
+### Run Container
+
+```bash
+docker run --rm -p 8000:8000 \
+  --env-file .env \
+  -v $(pwd)/token.json:/app/token.json \
+  -v $(pwd)/credentials.json:/app/credentials.json \
+  highwatch-rag
+```
+
+### Access
+
+- API: http://localhost:8000
+- Docs: http://localhost:8000/docs
+
+### Notes
+
+- Port mapping: `8000 → 8000`
+- Mounting `token.json` avoids repeated OAuth login
+
+---
+
+## 🧠 Tech Stack
+
+- Backend: FastAPI (Python)
+- LLM: Groq (`llama-3.3-70b-versatile`)
+- Embeddings: Gemini (`gemini-embedding-001`)
+- Vector DB: FAISS
+- Storage: Local filesystem
+- Integration: Google Drive API (OAuth)
+
+---
+
+## 📌 Design Decisions
+
+- **FAISS over cloud vector DB** → faster local development, no external dependency
+- **Incremental sync** → avoids redundant processing, improves efficiency
+- **Chunk overlap** → improves retrieval quality for long documents
+- **Separation of concerns** → modular architecture for scalability
+
+---
+
+## 🚧 Future Improvements
+
+- Add metadata filtering (file type, date, owner)
+- Support more file formats (DOCX, HTML)
+- Add streaming responses for `/ask`
+- Integrate UI (React frontend)
+- Replace FAISS with scalable vector DB (Pinecone / Weaviate)
+
+---
+
+## 🧪 Demo Flow (Quick Start)
+
+1. Call `/sync-drive` → index documents  
+2. Call `/ask` → query knowledge base  
+3. System retrieves relevant chunks → sends to LLM → returns answer
