@@ -118,5 +118,3 @@ Key wavenumber findings:
 > **Note:** This query retrieved content from a separate research document (`R2.pdf`) also present in Google Drive, demonstrating the system's ability to search and answer across **multiple documents** simultaneously.
 
 **Sources:** `R2.pdf`
- correctly identifies the originating file for each answer.
-- The system successfully retrieves from multiple documents in the same Drive.
