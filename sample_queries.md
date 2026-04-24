@@ -115,6 +115,4 @@ Key wavenumber findings:
 | 1086.45 | C–O–C stretching | 1000–1200 | Anomeric region, stretching of C–O from aliphatic alcohols |
 | 625.85 | C–C stretching | 500–800 | Stretching of C–C |
 
-> **Note:** This query retrieved content from a separate research document (`R2.pdf`) also present in Google Drive, demonstrating the system's ability to search and answer across **multiple documents** simultaneously.
-
 **Sources:** `R2.pdf`
