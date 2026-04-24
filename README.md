@@ -121,8 +121,6 @@ uvicorn api.main:app --reload --port 8000
 
 - Splits text into smaller chunks
 - Maintains overlap between chunks
-- Preserves context across boundaries
-- Improves retrieval quality
 
 ---
 
@@ -245,7 +243,6 @@ docker run --rm -p 8000:8000 \
 
 - Add metadata filtering (file type, date, owner)
 - Support more file formats (DOCX, HTML)
-- Add streaming responses for `/ask`
 - Integrate UI (React frontend)
 - Replace FAISS with scalable vector DB (Pinecone / Weaviate)
 
