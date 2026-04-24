@@ -118,18 +118,5 @@ Key wavenumber findings:
 > **Note:** This query retrieved content from a separate research document (`R2.pdf`) also present in Google Drive, demonstrating the system's ability to search and answer across **multiple documents** simultaneously.
 
 **Sources:** `R2.pdf`
-
----
-
-## Summary
-
-| Query | Source Document | Status |
-|---|---|---|
-| What is our refund policy? | Highwatch_Company_Knowledge_Base.md.pdf | ✅ Correct |
-| What are the company's compliance requirements? | Highwatch_Company_Knowledge_Base.md.pdf | ✅ Correct |
-| Summarize the onboarding process | Highwatch_Company_Knowledge_Base.md.pdf | ✅ Correct |
-| What is the research about suspended particulate matter? | R2.pdf | ✅ Cross-document retrieval |
-
-- All answers are grounded strictly in synced Google Drive documents.
-- The `sources` field correctly identifies the originating file for each answer.
+ correctly identifies the originating file for each answer.
 - The system successfully retrieves from multiple documents in the same Drive.
